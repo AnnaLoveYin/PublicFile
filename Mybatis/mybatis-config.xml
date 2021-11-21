@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="spring/jdbc.properties"/>
+    <!--    设置打开驼峰命名-->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <!--    给实体类起别名-->
+    <typeAliases>
+        <!--        给某一个bean起别名-->
+        <!--        <typeAlias type="com.yinty.bean.Emp" alias="emp"></typeAlias>-->
+        <!--        批量起别名-->
+        <package name="com.yinty.bean"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--    数据库厂商-->
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="Oracle" value="oracle"/>
+        <property name="MySQL" value="mysql"/>
+    </databaseIdProvider>
+    <mappers>
+        <mapper resource="mapper/EmpMapper.xml"/>
+        <mapper class="com.yinty.dao.EmpMapperAnnontion"/>
+<!--        <package name="mybatis/mapper"/>-->
+    </mappers>
+</configuration>
